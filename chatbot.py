@@ -21,7 +21,7 @@ st.markdown("<h1 style='text-align: center;'>🤖 Welcome to Ahmad's Chatbot</h1
 st.markdown("<p style='text-align: center; color: #888;'>Your AI assistant is here to help you! 🚀</p>", unsafe_allow_html=True)
 
 # Sidebar setup
-st.sidebar.image('Ahmad Ali Profile Photo.png', use_column_width=True)
+st.sidebar.image('Ahmad Ali.png', use_column_width=True)
 st.sidebar.header("**Ahmad Ali Rafique**")
 st.sidebar.write("AI & Machine Learning Expert")
 
