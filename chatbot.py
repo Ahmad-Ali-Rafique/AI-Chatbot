@@ -12,8 +12,12 @@ def getResponseFromModel(user_input):
     """
     This function sends the user's input to the Gemini model and returns the generated response.
     """
-    response = model.generate_content(user_input)
-    return response.text
+    try:
+        response = model.generate_content(user_input)
+        return response.text
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        return "Sorry, something went wrong. Please try again later."
 
 # Streamlit UI setup
 st.set_page_config(page_title="Ahmad's Chatbot", page_icon="💬")
@@ -34,16 +38,17 @@ st.sidebar.write("Developed by Ahmad Ali Rafique", unsafe_allow_html=True)
 
 # Main content area
 st.markdown("## ✍️ Enter your query below:")
-user_input = st.text_input("", placeholder="Ask me anything...")
 
-# Add some space for better layout
-st.write("")
+# Form for user input
+with st.form(key='chat_form', clear_on_submit=True):
+    user_input = st.text_input("", placeholder="Ask me anything...", key='user_input')
+    submit_button = st.form_submit_button(label='Send')
 
-if user_input:
-    with st.spinner("🤔 Thinking..."):
-        output = getResponseFromModel(user_input)
-    st.markdown("### 🤖 Chatbot's Response:")
-    st.success(output)
+    if submit_button and user_input:
+        with st.spinner("🤔 Thinking..."):
+            output = getResponseFromModel(user_input)
+        st.markdown("### 🤖 Chatbot's Response:")
+        st.success(output)
 
 # Footer
 st.markdown("<hr>", unsafe_allow_html=True)
